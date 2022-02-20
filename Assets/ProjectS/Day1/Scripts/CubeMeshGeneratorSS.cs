@@ -1,5 +1,16 @@
-﻿//
-
+﻿//=======================================================================================
+/**
+ @file CubeMeshGeneratorSS.cs
+ 
+ @brief 正六面体のメッシュ作成スクリプト
+ @details 
+ @date 2022/02/20 - 作成 - Shima
+ @author Shima_tanvk1ch1
+ @attention	
+ 
+ Copyright (c) 2022 Shima All rights reserved
+ */
+//=======================================================================================
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -67,7 +78,7 @@ public class CubeMeshGeneratorSS : MonoBehaviour
         mesh.Clear();               // 初期化処理
         mesh.SetVertices(verts);    // 頂点登録
 
-        mesh.SetIndices(triangles, MeshTopology.Triangles, 0); // インデックスバッファ設定？
+        mesh.SetIndices(triangles, MeshTopology.Triangles, 0); // インデックスバッファ設定
         mesh.RecalculateNormals();  // 法線計算
 
         //! メッシュをフィルタに設定
