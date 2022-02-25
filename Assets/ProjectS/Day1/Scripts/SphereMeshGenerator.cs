@@ -1,10 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(MeshFilter))]
 [RequireComponent(typeof(MeshRenderer))]
-public class SphereMeshGeneratorSS : MonoBehaviour
+public class SphereMeshGenerator : MonoBehaviour
 {
     private MeshRenderer        m_renderer;
     private MeshFilter          m_filter;
@@ -68,6 +67,7 @@ public class SphereMeshGeneratorSS : MonoBehaviour
             var yRadian = (float)(vy + 1) * centerRadianY / 2f;
 
             //! 1辺の長さ
+            //! 高さの頂点における円の半径
             var tmpLength = Mathf.Abs(Mathf.Sin(yRadian));
 
             var y = Mathf.Cos(yRadian);

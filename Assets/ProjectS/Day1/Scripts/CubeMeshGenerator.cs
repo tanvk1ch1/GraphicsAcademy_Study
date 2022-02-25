@@ -1,22 +1,9 @@
-﻿//=======================================================================================
-/**
- @file CubeMeshGeneratorSS.cs
- 
- @brief 正六面体のメッシュ作成スクリプト
- @details 
- @date 2022/02/20 - 作成 - Shima
- @author Shima_tanvk1ch1
- @attention	
- 
- Copyright (c) 2022 Shima All rights reserved
- */
-//=======================================================================================
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(MeshFilter))]
 [RequireComponent(typeof(MeshRenderer))]
-public class CubeMeshGeneratorSS : MonoBehaviour
+public class CubeMeshGenerator : MonoBehaviour
 {
     private void Start()
     {
