@@ -1,4 +1,4 @@
-Shader "Custom/VertexShader_Task1"
+ï»¿Shader "Custom/VertexShader_Task1"
 {
     Properties
     {
@@ -16,18 +16,18 @@ Shader "Custom/VertexShader_Task1"
             #pragma vertex      vert
             #pragma fragment    frag
             
-            // ’¸“_ƒVƒF[ƒ_[“ü—Í’¸“_\‘¢‘Ì
+            // é ‚ç‚¹ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼å…¥åŠ›é ‚ç‚¹æ§‹é€ ä½“
             struct appdata
             {
                 float4 vertex   : POSITION;
-                fixed4 color    : COLOR;        // ƒZƒ}ƒ“ƒeƒBƒNƒX‚É’¸“_ƒJƒ‰[‚ğw’è
+                fixed4 color    : COLOR;        // ã‚»ãƒãƒ³ãƒ†ã‚£ã‚¯ã‚¹ã«é ‚ç‚¹ã‚«ãƒ©ãƒ¼ã‚’æŒ‡å®š
             };
             
-            // ’¸“_ƒVƒF[ƒ_[o—Í’¸“_\‘¢‘Ì
+            // é ‚ç‚¹ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼å‡ºåŠ›é ‚ç‚¹æ§‹é€ ä½“
             struct v2f
             {
                 float4 vertex   : SV_POSITION;
-                fixed4 color    : COLOR0;        // ƒJƒ‰[‚Ìî•ñ‚ğo—Í
+                fixed4 color    : COLOR0;        // ã‚«ãƒ©ãƒ¼ã®æƒ…å ±ã‚’å‡ºåŠ›
             };
 
             sampler2D   _MainTex;
@@ -43,7 +43,7 @@ Shader "Custom/VertexShader_Task1"
 
             fixed4 frag (v2f i) : SV_Target
             {
-                return i.color;                 // ƒJƒ‰[‚ğ‚»‚Ì‚Ü‚Üo—Í
+                return i.color;                 // ã‚«ãƒ©ãƒ¼ã‚’ãã®ã¾ã¾å‡ºåŠ›
             }
             ENDCG
         }
