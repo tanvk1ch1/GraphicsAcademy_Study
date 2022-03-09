@@ -84,7 +84,6 @@ public class MeshGeneratorWithColor : MonoBehaviour
             Color.yellow,
         };
         
-
         Mesh mesh = new Mesh();             // メッシュを作成
         mesh.Clear();                       // メッシュ初期化
         mesh.SetVertices(vertices);         // メッシュに頂点を登録する
