@@ -1,4 +1,4 @@
-Shader "Custom/Lighting_Task1"
+Shader "Day3/Phong_Task1"
 {
     Properties
     {
@@ -11,14 +11,12 @@ Shader "Custom/Lighting_Task1"
         
         Pass
         {
-            Tags { "LightMode" = "ForwardBase"}
-            
             CGPROGRAM
             #pragma vertex vert
             #pragma fragment frag
             
             #include "UnityCG.cginc"
-            #include "Lighting.cginc" // ライティング考慮に必要
+            #include "Lighting.cginc"
             
             struct appdata
             {
@@ -29,7 +27,7 @@ Shader "Custom/Lighting_Task1"
             
             struct v2f
             {
-                float2 uv : TEXCOORD0;
+                float4 uv : TEXCOORD0;
                 float4 vertex : SV_POSITION;
                 float3 normal : NORMAL;
             };
@@ -41,33 +39,36 @@ Shader "Custom/Lighting_Task1"
             {
                 v2f o;
                 o.vertex = UnityObjectToClipPos(v.vertex); // MVP変換
-                o.normal = UnityObjectToWorldNormal(v.normal); // 法線を回転させる
-                o.uv = TRANSFORM_TEX(v.uv, _MainTex);
+                o.uv = v.vertex;
+                o.normal = mul(unity_ObjectToWorld, v.normal);
                 return o;
             }
             
             fixed4 frag (v2f i) : SV_Target
             {
-                // ディレクションライトのデータを作成
                 float3 ligDirection = normalize(_WorldSpaceLightPos0.xyz);
+                fixed3 ligColor = _LightColor0.xyz;
+                float3 refVec = reflect(ligDirection, i.normal); // 反射ベクトルを求める
                 
-                // ピクセルの法線とライトの方向の内積を計算
-                float t = dot(i.normal, ligDirection);
+                // 光が当たったサーフェース(カメラ)から、視線に伸びる視線ベクトルを求める
+                float3 toEye = _WorldSpaceCameraPos - i.uv;
+                toEye = normalize(toEye); // 正規化
                 
-                // 内積の結果が0以下なら0にする
+                // 反射ベクトルと視線ベクトルから、内積を求める
+                float t = dot(refVec, toEye);
+                // 内積tがマイナスになるので0.0にする
                 if (t < 0.0f)
                 {
                     t = 0.0f;
                 }
+                // 鏡面反射の強さを絞る
+                t = pow(t, 5.0f);
                 
-                // ピクセルが受けているライトの光を求める
-                fixed3 ligColor = _LightColor0.xyz;
-                fixed3 diffuseLig = ligColor * t;
-                
-                float4 finalColor = tex2D(_MainTex, i.uv);
-                
-                // 最終出力カラーに光を乗算する
-                finalColor.xyz *= diffuseLig;
+                float3 specularLig = ligColor * t; // 鏡面反射光を求める
+                float3 diffuseLig = ligColor * t; // 拡散反射光を求める
+                float3 lig = diffuseLig + specularLig; // 拡散反射光と鏡面反射光を足す
+                float4 finalColor = float4(1,1,1,1);
+                finalColor.xyz *= lig; // 乗算で最終的な出力カラーを求める
                 
                 return finalColor;
             }
